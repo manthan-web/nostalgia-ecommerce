@@ -30,6 +30,7 @@ const Cart = () => {
     const cartElement = cart.map(product => {
         return (
             <div key={product.id} className="border-t py-6 mt-6 border-zinc-600">
+                <Toaster duration={2000} richColors expand={false} position="bottom-right" />
                 <div className="w-full flex p-2 bg-zinc-200 shadow-md rounded-md h-full">
                     <div>
                         <img src={`../${product.image}`} className="shrink-0 object-cover md:h-52 md:w-52 h-32 w-32" alt="cartImage" />
@@ -38,6 +39,7 @@ const Cart = () => {
                         <div className="flex w-full justify-between">
                             <h3>{product.name}</h3>
                             <button onClick={() => {
+                                toast.success(`${product.name} deleted succesfully`)
                                 removeItem(product.id)
                             }}><IoMdClose /></button>
                         </div>

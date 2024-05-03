@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GlobalContext } from '../../context/GlobalContext'
+import { Toaster, toast } from 'sonner'
+
 
 
 export const Shop = () => {
@@ -18,6 +20,7 @@ export const Shop = () => {
     const productsElement = firstThree.map((product) => {
         return (
                 <div key={product.id} className="group relative shadow-md bg-zinc-200 p-4 rounded-sm">
+                  <Toaster duration={2000} richColors expand={false} position="bottom-right" />
                   <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 lg:h-80">
                     <Link to={`/products/${product.id}`}><img
                       src={`../${product.image}`}
@@ -34,13 +37,17 @@ export const Shop = () => {
                     </div>
                     <p className="text-sm font-medium text-gray-900">${(product.priceCents / 100).toFixed(2)}</p>
                   </div>
-                            <button onClick={() => setCart(prev => [...prev, {
+                            <button onClick={() => {
+                              setCart(prev => [...prev, {
                               id: product.id,
                               name: product.name,
                               amount: product.amount,
                               image: product.image,
                               price: product.priceCents / 100
-                            }])} className='w-full bg-purple text-white text-sm px-6 py-2 mt-3 mx-auto rounded-sm'>Add To Cart</button>
+                            }])
+                            toast.success(`${product.name} added succesfully`)
+                          }
+                            } className='w-full bg-purple text-white text-sm px-6 py-2 mt-3 mx-auto rounded-sm'>Add To Cart</button>
                 </div>
               )
         
